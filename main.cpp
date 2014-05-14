@@ -280,7 +280,7 @@ int main()
                     //Ich musste seperate Strings machen für den Benutzernamen und die IP addresse
                     if(ip)//Wenn das Textfeld Ip angewählt ist
                     {   
-                        if(((event.text.unicode < 57)&&(event.text.unicode > 48)||(event.text.unicode == 46)))
+                        if(((event.text.unicode <= 57)&&(event.text.unicode >= 48)||(event.text.unicode == 46)))
                         {
                             IP_eingabe += static_cast<char>(event.text.unicode);
                         }    
@@ -305,6 +305,7 @@ int main()
                                 IP.setString(IP_eingabe);           //Text wird gesetzt
                                 properties.setIP(IP_eingabe);       //setzten der Propertie
                            }
+                           properties.
                         }
                         
                         if(properties.getIpAdress().toInteger()==0)//Überprüfen der IP-Addresse 
@@ -318,7 +319,7 @@ int main()
                     }   
                     if(benutzernamen)
                     {     
-                        if(((event.text.unicode < 90)&&(event.text.unicode > 65))||((event.text.unicode < 122)&&(event.text.unicode > 97)))
+                        if(((event.text.unicode <= 90)&&(event.text.unicode >= 65))||((event.text.unicode <= 122)&&(event.text.unicode >= 97)))
                         {
                             Benutzernamen_eingabe += static_cast<char>(event.text.unicode);
                         }
