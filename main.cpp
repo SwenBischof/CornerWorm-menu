@@ -98,7 +98,7 @@ int main()
     Benutzernamen.setFont(font);
     Benutzernamen.setColor(sf::Color::Black);
     Benutzernamen.setPosition(sf::Vector2f(795,410));
-    
+  
     sf::Text Titel_Benutzer;
     Titel_Benutzer.setCharacterSize(25);
     Titel_Benutzer.setStyle(sf::Text::Regular);
@@ -129,7 +129,7 @@ int main()
     Titel_Speed.setFont(font);
     Titel_Speed.setColor(sf::Color::Black);
     Titel_Speed.setPosition(sf::Vector2f(50,660));
-    Titel_Speed.setString("Geschwindigkeit        :");
+    Titel_Speed.setString("Geschwindigkeit       :");
     
     sf::Text addresse;  
     addresse.setCharacterSize(20);
@@ -287,18 +287,34 @@ int main()
                         if(erase)
                         {
                             Position=IP_eingabe.getSize();                           
-                            if(IP_eingabe.getSize()>0)
+                            if((IP_eingabe.getSize()>0))
                             {
-                                IP_eingabe.erase(Position-1);
+                                IP_eingabe.erase(Position-1);   //Löschen des letzten Zeichens
                             }
                             erase=0;
-                            IP.setString(IP_eingabe);//Text wird gesetzt
+                            if((IP_eingabe.getSize()<16))
+                            {
+                                IP.setString(IP_eingabe);           //Text wird gesetzt
+                                properties.setIP(IP_eingabe);
+                            }
                         }
                         else
                         {
-                           IP.setString(IP_eingabe);//Text wird gesetzt}
+                           if((IP_eingabe.getSize()<16))            //Begrenzen der Zeichenzahl
+                           {
+                                IP.setString(IP_eingabe);           //Text wird gesetzt
+                                properties.setIP(IP_eingabe);       //setzten der Propertie
+                           }
                         }
-                        properties.setIP(IP_eingabe);//setzten der 
+                        
+                        if(properties.getIpAdress().toInteger()==0)//Überprüfen der IP-Addresse 
+                        {
+                            IP_Textfeld.setFillColor(sf::Color::Red);
+                        }
+                        else
+                        {
+                            IP_Textfeld.setFillColor(sf::Color::White);
+                        }
                     }   
                     if(benutzernamen)
                     {     
@@ -308,18 +324,27 @@ int main()
                         }
                         if(erase)
                         {
-                            Position=Benutzernamen_eingabe.getSize();
-                            if(Benutzernamen_eingabe.getSize()>0)
+                            
+                            Position=Benutzernamen_eingabe.getSize();                             
+                            if((Benutzernamen_eingabe.getSize()>0))//Abfrage ob etwas eingegeben wird und ob es nicht zu lang ist
                             {
-                                Benutzernamen_eingabe.erase(Position-1);
+                                Benutzernamen_eingabe.erase(Position-1);            //Löschen des letzten Buchstabens
                             }
                             erase=0;
-                            Benutzernamen.setString(Benutzernamen_eingabe);         //Text wird gesetzt
+                            if((Benutzernamen_eingabe.getSize()<10))
+                            {
+                                Benutzernamen.setString(Benutzernamen_eingabe);         //Text wird gesetzt
+                                properties.setUsername(Benutzernamen_eingabe);          //Properties setzten
+                            }
                         }
                         else
                         {
-                            Benutzernamen.setString(Benutzernamen_eingabe);         //Text wird gesetzt
-                            properties.setUsername(Benutzernamen_eingabe);          //Setzten des Benutzernamens in den Einstellungen
+                            if((Benutzernamen_eingabe.getSize()<10))
+                            {
+                                Benutzernamen.setString(Benutzernamen_eingabe);         //Text wird gesetzt
+                                properties.setUsername(Benutzernamen_eingabe);          //Setzten des Benutzernamens in den Einstellungen
+                            }
+                           
                         }
                         
 
