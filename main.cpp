@@ -42,14 +42,14 @@ int main()
     Blau.setSize(Color_size);
     Gelb.setSize(Color_size);
     Gruen.setSize(Color_size);
-    Select_color.setSize(sf::Vector2f(28,28));
+    Select_color.setSize(sf::Vector2f(25,25));
 
     
     Rot.setPosition(350,609);
     Blau.setPosition(390,609);
     Gelb.setPosition(430,609);
     Gruen.setPosition(470,609);
-    Select_color.setPosition(348,609);
+    Select_color.setPosition(347,608);
 
     
     Rot.setFillColor(sf::Color::Red);
@@ -241,22 +241,22 @@ int main()
                     if(Blau.getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y))
                     {
                         properties.setColor(sf::Color::Blue);
-                        Select_color.setPosition(388,607);//Macht die Auswahl sichtbar
+                        Select_color.setPosition(387,608);//Macht die Auswahl sichtbar
                     }
                     if(Rot.getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y))
                     {
                         properties.setColor(sf::Color::Red);
-                        Select_color.setPosition(348,607);//Macht die Auswahl sichtbar
+                        Select_color.setPosition(347,608);//Macht die Auswahl sichtbar
                     }
                     if(Gelb.getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y))
                     {
                         properties.setColor(sf::Color::Yellow);
-                        Select_color.setPosition(428,607);//Macht die Auswahl sichtbar
+                        Select_color.setPosition(427,608);//Macht die Auswahl sichtbar
                     }
                     if(Gruen.getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y))
                     {
                         properties.setColor(sf::Color::Green);
-                        Select_color.setPosition(468,607);//Macht die Auswahl sichtbar
+                        Select_color.setPosition(467,608);//Macht die Auswahl sichtbar
                     }
                     //Auswahl der Spielgeschwindigkeit
                     if(schnell.getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y))
@@ -364,8 +364,8 @@ int main()
         //Buttons zeichnen
         window.draw(start);
         window.draw(beenden);
-        window.draw(zurueck);
-        window.draw(neustarten);
+        //window.draw(zurueck);
+        //window.draw(neustarten);
         window.draw(addresse);
         window.draw(select);
         window.draw(langsam);
