@@ -27,7 +27,6 @@ std::vector<sf::Event> MenuEvents;
 int main() 
 {
     std::size_t Position;
-    std::size_t loeschen=1;
     sf::RenderWindow window(sf::VideoMode(1024,768,32),"my window");
     Properties properties;
     sf::Vector2f Color_size(25,25);
@@ -46,11 +45,11 @@ int main()
     Select_color.setSize(sf::Vector2f(28,28));
 
     
-    Rot.setPosition(sf::Vector2f(350,609));
-    Blau.setPosition(sf::Vector2f(390,609));
-    Gelb.setPosition(sf::Vector2f(430,609));
-    Gruen.setPosition(sf::Vector2f(470,609));
-    Select_color.setPosition(sf::Vector2f(348,607));
+    Rot.setPosition(350,609);
+    Blau.setPosition(390,609);
+    Gelb.setPosition(430,609);
+    Gruen.setPosition(470,609);
+    Select_color.setPosition(348,609);
 
     
     Rot.setFillColor(sf::Color::Red);
@@ -58,8 +57,6 @@ int main()
     Gelb.setFillColor(sf::Color::Yellow);
     Gruen.setFillColor(sf::Color::Green);
     Select_color.setFillColor(sf::Color::Magenta);
-
-  
 
     
     //Alle Textfelder 
@@ -105,7 +102,7 @@ int main()
     Titel_Benutzer.setFont(font);
     Titel_Benutzer.setColor(sf::Color::Black);
     Titel_Benutzer.setPosition(sf::Vector2f(775,360));
-    Titel_Benutzer.setString("Benutzernamen:");
+    Titel_Benutzer.setString("Namen(9):");
     
     sf::Text Titel_IP;
     Titel_IP.setCharacterSize(25);
@@ -143,6 +140,8 @@ int main()
     //Erstellen der Bilder+Laden+Kontrolle
     sf::Texture tex_start;
     sf::Texture tex_beenden;
+    sf::Texture tex_neustarten;
+    sf::Texture tex_zurueck;
     sf::Texture tex_langsam;
     sf::Texture tex_mittel;
     sf::Texture tex_schnell;
@@ -155,6 +154,10 @@ int main()
     {return 0;}
     if(tex_beenden.loadFromFile("beenden.png")==0)
     {return 0;}
+    if(tex_neustarten.loadFromFile("neustarten.png")==0)
+    {return 0;}
+    if(tex_zurueck.loadFromFile("zurueck.png")==0)
+    {return 0;}
     if(tex_langsam.loadFromFile("langsam.png")==0)
     {return 0;}   
     if(tex_mittel.loadFromFile("mittel.png")==0)
@@ -166,18 +169,22 @@ int main()
  
     sf::Sprite background(texture);
     sf::Sprite start(tex_start);
+    sf::Sprite neustarten(tex_neustarten);
+    sf::Sprite zurueck(tex_zurueck);
     sf::Sprite beenden(tex_beenden);
     sf::Sprite langsam(tex_langsam);
     sf::Sprite mittel(tex_mittel);
     sf::Sprite schnell(tex_schnell);
     sf::Sprite select(tex_select);
    
-    start.setPosition(50,350);
+    start.setPosition(50 ,340);
     beenden.setPosition(50,450);
-    langsam.setPosition(sf::Vector2f(340,650));
-    mittel.setPosition(sf::Vector2f(490,650));
-    schnell.setPosition(sf::Vector2f(640,650));
-    select.setPosition(sf::Vector2f(338,649));
+    neustarten.setPosition(50,340);
+    zurueck.setPosition(50,450);
+    langsam.setPosition(340,650);
+    mittel.setPosition(490,650);
+    schnell.setPosition(640,650);
+    select.setPosition(338,649);
     
 
     
@@ -194,18 +201,29 @@ int main()
             //Mausabfragen
             if(event.type == sf::Event::MouseButtonPressed) //Es wird abgefragt ob eine Maustaste geklickt wurde
             {
-                MenuEvents.push_back(event);
                 if(event.mouseButton.button==sf::Mouse::Left)
                 {
+                    //Abfrage ob die Rechtecke den Ortsvektor der Maus enthalten
                     if(start.getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y))//Überprüft ob die Fläche den Punkt der Maus beeinhaltet 
                     {
                         //Anweisung
                     }
 
+                    if(neustarten.getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y))//Überprüft ob die Fläche den Punkt der Maus beeinhaltet 
+                    {
+                        //Anweisung
+                    } 
+                    
+                    if(zurueck.getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y))//Überprüft ob die Fläche den Punkt der Maus beeinhaltet 
+                    {
+                        //Anweisung
+                    } 
+                    
                     if(beenden.getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y))//Überprüft ob die Fläche den Punkt der Maus beeinhaltet 
                     {
                         window.close();
-                    } 
+                    }
+                                        
                     //Hier wird die Selektion des Textfeldes gemacht
                     if(IP_Textfeld.getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y))
                     {
@@ -218,44 +236,43 @@ int main()
                         ip=0;
                         benutzernamen=1;   //Hier wird das Bit gesetzt welche dann in der Texteingabe gebraucht wird
                     }
-
-                        
                     
                     //Auswahl der Spielerfarbe
                     if(Blau.getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y))
                     {
                         properties.setColor(sf::Color::Blue);
-                        Select_color.setPosition(sf::Vector2f(388,607));//Macht die Auswahl sichtbar
+                        Select_color.setPosition(388,607);//Macht die Auswahl sichtbar
                     }
                     if(Rot.getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y))
                     {
                         properties.setColor(sf::Color::Red);
-                        Select_color.setPosition(sf::Vector2f(348,607));//Macht die Auswahl sichtbar
+                        Select_color.setPosition(348,607);//Macht die Auswahl sichtbar
                     }
                     if(Gelb.getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y))
                     {
                         properties.setColor(sf::Color::Yellow);
-                        Select_color.setPosition(sf::Vector2f(428,607));//Macht die Auswahl sichtbar
+                        Select_color.setPosition(428,607);//Macht die Auswahl sichtbar
                     }
                     if(Gruen.getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y))
                     {
                         properties.setColor(sf::Color::Green);
-                        Select_color.setPosition(sf::Vector2f(468,607));//Macht die Auswahl sichtbar
+                        Select_color.setPosition(468,607);//Macht die Auswahl sichtbar
                     }
+                    //Auswahl der Spielgeschwindigkeit
                     if(schnell.getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y))
                     {
                         properties.setSpeed(100);
-                        select.setPosition(sf::Vector2f(638,649));
+                        select.setPosition(638,649);
                     }
                     if(mittel.getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y))
                     {
                         properties.setSpeed(50);
-                        select.setPosition(sf::Vector2f(488,649));
+                        select.setPosition(488,649);
                     }
                     if(langsam.getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y))
                     {
                         properties.setSpeed(20);
-                        select.setPosition(sf::Vector2f(338,649));
+                        select.setPosition(338,649);
                     }                    
                 }
              }
@@ -264,51 +281,40 @@ int main()
              {
                 if(event.key.code==sf::Keyboard::Escape)
                 {
-                        window.close();
+                    window.close();
                 }
                 if(event.key.code==sf::Keyboard::BackSpace)
                 {
                     erase=1;
                 }
-
              } 
             //Texteingaben
              if (event.type == sf::Event::TextEntered)
              {
                 if (event.text.unicode < 128)// Handle ASCII characters only
                 {
-                    //Ich musste seperate Strings machen für den Benutzernamen und die IP addresse
                     if(ip)//Wenn das Textfeld Ip angewählt ist
                     {   
-                        if(((event.text.unicode <= 57)&&(event.text.unicode >= 48)||(event.text.unicode == 46)))
+                        if(((event.text.unicode <= 57)&&(event.text.unicode >= 48)||(event.text.unicode == 46))) //Es werden nur Zahlen akzeptiert
                         {
                             IP_eingabe += static_cast<char>(event.text.unicode);
                         }    
                         if(erase)
                         {
-                            Position=IP_eingabe.getSize();                           
+                            Position=IP_eingabe.getSize();      //Erfassen der Grösse des Strings                           
                             if((IP_eingabe.getSize()>0))
                             {
                                 IP_eingabe.erase(Position-1);   //Löschen des letzten Zeichens
                             }
                             erase=0;
-                            if((IP_eingabe.getSize()<16))
-                            {
-                                IP.setString(IP_eingabe);           //Text wird gesetzt
-                                properties.setIP(IP_eingabe);
-                            }
                         }
-                        else
+                        if((IP_eingabe.getSize()<16))            //Begrenzen der Zeichenzahl
                         {
-                           if((IP_eingabe.getSize()<16))            //Begrenzen der Zeichenzahl
-                           {
-                                IP.setString(IP_eingabe);           //Text wird gesetzt
-                                properties.setIP(IP_eingabe);       //setzten der Propertie
-                           }
-                           properties.
+                                IP.setString(IP_eingabe);        //Text wird gesetzt
+                                properties.setIP(IP_eingabe);    //setzten der Propertie
                         }
                         
-                        if(properties.getIpAdress().toInteger()==0)//Überprüfen der IP-Addresse 
+                        if(properties.getIpAdress().toInteger()==0)//Überprüfen ob die IP-Addresse gültig ist
                         {
                             IP_Textfeld.setFillColor(sf::Color::Red);
                         }
@@ -317,38 +323,27 @@ int main()
                             IP_Textfeld.setFillColor(sf::Color::White);
                         }
                     }   
-                    if(benutzernamen)
-                    {     
-                        if(((event.text.unicode <= 90)&&(event.text.unicode >= 65))||((event.text.unicode <= 122)&&(event.text.unicode >= 97)))
+                    
+                    if(benutzernamen)//Textfeld für Benutzernamen ist ausgewählt
+                    {   //Lässt nur Klein- und Grossbuchstaben zu  
+                        if(((event.text.unicode <= 90)&&(event.text.unicode >= 65))||((event.text.unicode <= 122)&&(event.text.unicode >= 97))) 
                         {
                             Benutzernamen_eingabe += static_cast<char>(event.text.unicode);
                         }
                         if(erase)
-                        {
-                            
-                            Position=Benutzernamen_eingabe.getSize();                             
-                            if((Benutzernamen_eingabe.getSize()>0))//Abfrage ob etwas eingegeben wird und ob es nicht zu lang ist
+                        {                            
+                            Position=Benutzernamen_eingabe.getSize();           //Anzahl zeichen erfassen                             
+                            if((Benutzernamen_eingabe.getSize()>0))             //Abfrage ob etwas eingegeben wurde 
                             {
-                                Benutzernamen_eingabe.erase(Position-1);            //Löschen des letzten Buchstabens
+                                Benutzernamen_eingabe.erase(Position-1);        //Löschen des letzten Buchstabens
                             }
                             erase=0;
-                            if((Benutzernamen_eingabe.getSize()<10))
-                            {
-                                Benutzernamen.setString(Benutzernamen_eingabe);         //Text wird gesetzt
-                                properties.setUsername(Benutzernamen_eingabe);          //Properties setzten
-                            }
                         }
-                        else
+                        if((Benutzernamen_eingabe.getSize()<10))                //Maximale Anzahl Zeichen 9
                         {
-                            if((Benutzernamen_eingabe.getSize()<10))
-                            {
-                                Benutzernamen.setString(Benutzernamen_eingabe);         //Text wird gesetzt
-                                properties.setUsername(Benutzernamen_eingabe);          //Setzten des Benutzernamens in den Einstellungen
-                            }
-                           
+                                Benutzernamen.setString(Benutzernamen_eingabe); //Text wird gesetzt
+                                properties.setUsername(Benutzernamen_eingabe);  //Setzten des Benutzernamens in den Einstellungen
                         }
-                        
-
                     }
                 }
              }
@@ -361,18 +356,22 @@ int main()
         window.draw(Benutzernamen_Textfeld);
         window.draw(IP);
         window.draw(Benutzernamen);
-        window.draw(start);
-        window.draw(beenden);
-        window.draw(addresse);
         window.draw(Titel_IP);
         window.draw(Titel_Benutzer);
         window.draw(Titel_Farbe);
         window.draw(Titel_Speed);
-        window.draw(Select_color);
+        
+        //Buttons zeichnen
+        window.draw(start);
+        window.draw(beenden);
+        window.draw(zurueck);
+        window.draw(neustarten);
+        window.draw(addresse);
         window.draw(select);
         window.draw(langsam);
         window.draw(mittel);
         window.draw(schnell);
+        window.draw(Select_color);
         window.draw(Gelb);
         window.draw(Rot);
         window.draw(Gruen);
